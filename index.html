@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Markdown連番リスト修正ツール</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+      }
+
+      .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
+
+      .form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      label {
+        margin-bottom: 10px;
+      }
+
+      textarea {
+        width: 400px;
+        height: 200px;
+        padding: 10px;
+        margin-bottom: 30px;
+        resize: none;
+      }
+
+      button {
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        background: #4caf50;
+        color: #fff;
+        font-size: 16px;
+        cursor: pointer;
+        transition: ease-in-out 0.2s;
+      }
+
+      button:hover {
+        background: #3e8e41;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="form">
+        <label>Markdownの連番リスト:</label>
+        <textarea
+          id="input"
+          placeholder="Markdownの連番リストを入力してください"
+        ></textarea>
+        <button id="btnConvert">変換する</button>
+        <label>変換後の連番リスト:</label>
+        <textarea
+          id="output"
+          placeholder="ここに変換後の連番リストが表示されます"
+          readonly
+        ></textarea>
+      </div>
+    </div>
+
+    <script>
+      const btnConvert = document.getElementById('btnConvert');
+      btnConvert.addEventListener('click', () => {
+        const output = document
+          .getElementById('input')
+          .value.trim()
+          .split('\n')
+          .map(
+            (s, i) =>
+              `${i + 1}. ${s
+                .trim()
+                .replace(/^\d+\./gi, '')
+                .trim()}`
+          )
+          .join('\n');
+        document.getElementById('output').value = output;
+      });
+    </script>
+  </body>
+</html>
